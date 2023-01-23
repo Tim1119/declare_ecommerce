@@ -6,7 +6,7 @@ from pathlib import Path
 import environ
 from django.utils.log import DEFAULT_LOGGING
 
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env()
 
 # reading Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -14,11 +14,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # reading .env file
 environ.Env.read_env(BASE_DIR / '.env')
 
-SECRET_KEY = env("SECRET_KEY")
+# SECRET_KEY = 'django-insecure-tdoy3p69y2!cly2%1bl5a+kj*!a!nr=+3gs+esftz5x+^^qa9v'
+# DEBUG = True
+# ALLOWED_HOSTS = []
 
-DEBUG = env("DEBUG")
+SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
+DEBUG = env('DEBUG')
+
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(" ")
+
+
+THIRD_PARTY_APPS = [
+
+]
+
+LOCAL_APPS = [
+    'apps.account',
+]
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -29,16 +42,9 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
+SITE_ID = 1
 
-]
-
-LOCAL_APPS = [
-    'apps.account',
-]
-
-
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -55,7 +61,7 @@ ROOT_URLCONF = "declare_ecommerce.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -112,17 +118,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 AUTH_USER_MODEL = "account.User"
 
+# STATIC
 STATIC_URL = "/staticfiles/"
-STATIC_ROOT = []
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIR = []
 
-MEDIA_URL = '/mediafiles/'
-MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# MEDIA
+MEDIA_URL = "/mediafiles/"
+MEDIA_ROOT = BASE_DIR / "mediafiles"
+
 
 # logging
 logger = logging.getLogger(__name__)

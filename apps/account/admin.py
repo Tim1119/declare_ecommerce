@@ -42,7 +42,7 @@ class UserAdmin(BaseUserAdmin):
             {
                 "fields": (
                     "full_name",
-                    "created_on"
+                    # "email"
                 )
             },
         ),
@@ -58,7 +58,7 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
-        (_("Important Dates"), {"fields": ("last_login", "updated_on")}),
+        (_("Important Dates"), {"fields": ("last_login",)}),
     )
     add_fieldsets = (
         (
