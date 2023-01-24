@@ -26,11 +26,14 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(" ")
 
 
 THIRD_PARTY_APPS = [
-
+    "phonenumber_field",
+    'rest_framework'
 ]
 
 LOCAL_APPS = [
     'apps.account',
+    'apps.common',
+    'apps.profiles',
 ]
 
 DJANGO_APPS = [
